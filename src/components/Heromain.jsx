@@ -35,8 +35,8 @@ const HorizontalScrollCarousel = () => {
       <div className="relative  w-full bg-slate-950">
         <LampDemo />
         </div>
-      <h1 className="text-white font-body font-bold  text-7xl">Portfolio</h1>
-        <motion.div style={{ x }} className="flex gap-2 sticky top-0 w-full   h-screen items-center " >
+      <h1 className="text-white font-body font-bold  text-5xl mt-10  text-left fixed pl-10">Portfolio</h1>
+        <motion.div style={{ x }} className="flex gap-2 sticky top-0 w-full   h-screen items-center pl-3 " >
           {cards.map((card) => {
             return <Card card={card} key={card.id} />;
           })}
@@ -63,7 +63,7 @@ const Card = ({ card }) => {
     <PinContainer>
     <div
       key={card.id}
-      className="group relative h-[450px] rounded-md w-[350px] overflow-hidden"
+      className="group relative h-[450px] rounded-md w-[350px] "
     >
       <div className="bg-neutral-200">
         {/* This is the card with bg-neutral-200 */}
