@@ -39,7 +39,7 @@ const HorizontalScrollCarousel = () => {
     <section ref={targetRef} className="relative h-[300vh] bg-neutral-950">
       <LampDemo/>
       {!isLastCardVisible && (
-        <h1 className="text-white font-body font-bold text-5xl pt-10 sticky top-0 left-0 text-left  pl-14  h-5">
+        <h1 className="text-white font-body font-bold text-5xl pt-10 sticky top-0 left-0 text-left  pl-28  h-5">
           Portfolio
         </h1>
       )}
