@@ -23,7 +23,7 @@ function LampDemo() {
 function LampContainer({ children, className }) {
   return (
     <div
-      className={`fixed flex min-h-96 xs:visible md:visible flex-col w-full items-center justify-left overflow-hidden bg-slate-950  rounded-md z-0 ${className}`}
+      className={`absolute flex min-h-96 xs:visible md:visible flex-col w-full items-center justify-left overflow-hidden bg-slate-950  rounded-md z-0 ${className}`}
     >
       <div className="relative flex  flex-1 scale-y-125 items-center justify-center isolate z-0 w-full ">
         <motion.div

@@ -1,5 +1,5 @@
 import { motion, useTransform, useScroll } from "framer-motion";
-import { useRef } from "react";
+import { useRef,useState,useEffect } from "react";
 import img1 from '../assets/images/1455210_094903-01.jpeg'
 import img2 from '../assets/images/1625468.jpg'
 import img3 from '../assets/images/Strange.jpg'
@@ -22,20 +22,32 @@ const Example = () => {
 
 const HorizontalScrollCarousel = () => {
   const targetRef = useRef(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollY, scrollYProgress } = useScroll({
     target: targetRef,
   });
+  const [isLastCardVisible, setIsLastCardVisible] = useState(false);
 
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
+  useEffect(() => {
+    if (scrollYProgress.get() === 1) {
+      setIsLastCardVisible(true);
+    }
+  }, [scrollYProgress]);
+
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", isLastCardVisible ? "0%" : "-95%"]);
 
   return (
     <section ref={targetRef} className="relative h-[300vh] bg-neutral-950">
       <LampDemo/>
-            <h1 className="text-white font-body font-bold  text-5xl mt-10  text-left fixed pl-10">Portfolio</h1>
+      {!isLastCardVisible && (
+        <h1 className="text-white font-body font-bold text-5xl pt-10 sticky top-0 left-0 text-left  pl-14  h-5">
+          Portfolio
+        </h1>
+      )}
 
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden ">
 
-        <motion.div style={{ x }} className="flex gap-4">
+
+        <motion.div style={{ x }} className="flex gap-6 ">
           {cards.map((card) => {
             return <Card card={card} key={card.id} />;
           })}
