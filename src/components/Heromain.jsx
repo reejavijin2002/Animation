@@ -1,5 +1,5 @@
-import { motion, useTransform, useScroll,useViewportScroll } from "framer-motion";
-import { useRef ,useState} from "react";
+import { motion, useTransform, useScroll } from "framer-motion";
+import { useRef } from "react";
 import img1 from '../assets/images/1455210_094903-01.jpeg'
 import img2 from '../assets/images/1625468.jpg'
 import img3 from '../assets/images/Strange.jpg'
@@ -10,97 +10,63 @@ import img7 from '../assets/images/Strange.jpg'
 import { PinContainer } from "./Animation";
 import LampDemo from "./Lamp";
 
-
 const Example = () => {
   return (
-    <>
-   
+    <div>
+     
       <HorizontalScrollCarousel />
-   
-    </>
+     
+    </div>
   );
 };
 
 const HorizontalScrollCarousel = () => {
   const targetRef = useRef(null);
-  const [X, setX] = useState(0);
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
-  const handleDragEnd = (e, { offset, velocity }) => {
-    const swipeThreshold = 100;
-    const swipeRight = offset.X > swipeThreshold;
-    const swipeLeft = offset.X < -swipeThreshold;
-  
-    if (swipeRight) {
-      setX(0);
-    } else if (swipeLeft) {
-      setX(0);
-    } else {
-      setX(prevX => prevX + offset.X);
-    }
-  };
 
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
 
   return (
-    <section ref={targetRef} className=" h-[300vh] w-max  bg-slate-950  ">
-         
-      <div className="relative  w-full bg-slate-950">
-        <LampDemo />
-        </div>
-      <h1 className="text-white  font-body font-bold  text-5xl mt-10  text-left fixed pl-10">Portfolio</h1>
-        <motion.div style={{ x }} className="flex gap-0 sticky top-1 xs:w-full sm:w-1/2 md:w-1/4   h-screen items-center  " >
+    <section ref={targetRef} className="relative h-[300vh] bg-neutral-950">
+      <LampDemo/>
+            <h1 className="text-white font-body font-bold  text-5xl mt-10  text-left fixed pl-10">Portfolio</h1>
+
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+
+        <motion.div style={{ x }} className="flex gap-4">
           {cards.map((card) => {
             return <Card card={card} key={card.id} />;
           })}
         </motion.div>
-      
-     
-      
-    
-      
+      </div>
     </section>
   );
 };
 
 const Card = ({ card }) => {
-    const { scrollYProgress } = useViewportScroll();
-  const imageX = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0%", "100%"]
-  );
-
   return (
-    
-    <PinContainer>
+  <PinContainer>
     <div
       key={card.id}
-      className="group relative h-[350px] rounded-md w-[270px] "
+      className="group relative  h-[350px] w-[250px] overflow-hidden bg-neutral-200"
     >
-     
-      <motion.div
+      <div
         style={{
           backgroundImage: `url(${card.url})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-        //   x: imageX,
-          transition: "transform 0.3s ease-in-out",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%"
         }}
-        className="z-0"
-      ></motion.div>
+        className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-110"
+      ></div>
+      {/* <div className="absolute inset-0 z-10 grid place-content-center">
       
+      </div> */}
     </div>
     </PinContainer>
   );
 };
- 
 
 export default Example;
 
